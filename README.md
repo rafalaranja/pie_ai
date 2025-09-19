@@ -1,6 +1,6 @@
 # 🥧 PIE AI
 
-**P**laning **I**ntelligence **E**nhancer, **A**rtificially **I**nstituted
+**P**lanning **I**ntelligence **E**nhancer, **A**rtificially **I**nstituted
 
 > An AI-powered assistant for optimizing food production planning.
 
