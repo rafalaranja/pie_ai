@@ -1,5 +1,6 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    overflow: hidden; /* Esconder o scroll */
 }
 
 a, .btn-link {
