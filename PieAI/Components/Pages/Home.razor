@@ -55,12 +55,27 @@
     <!-- Container da direita -->
     <div class="d-flex justify-content-center flex-column">
         <!-- Container do botão -->
-        <div class="d-flex justify-content-center pb-5">
+        <div class="d-flex justify-content-center pb-3">
             <button class="btn btn-dark" @onclick="IncrementCount">Generate Plan</button>
         </div>
         <!-- Container da tabela -->
-        <div class="d-flex justify-content-center">
-            <textarea class="form-control " rows="8" cols="30" value="@currentCount" readonly style="resize: none;"></textarea>
+        <div class="d-flex justify-content-center flex-column">
+            <!-- Container do id e data -->
+            <div class="d-flex justify-content-between">
+                <p>Id: 3</p>
+                <p>Date: 29/01</p>
+            </div>
+            <!-- Container inline -->
+            <div class="d-flex d-inline-flex">
+                <!-- Container raw material -->
+                <div class="d-flex justify-content-center p-2">
+                    <textarea class="form-control " rows="8" cols="30" value="@currentCount" readonly style="resize: none;"></textarea>
+                </div>
+                <!-- Container orders -->
+                <div class="d-flex justify-content-center p-2">
+                    <textarea class="form-control " rows="8" cols="30" value="@currentCount" readonly style="resize: none;"></textarea>
+                </div>
+            </div>
         </div>
     </div>
 </div>

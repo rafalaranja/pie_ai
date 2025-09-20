@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PieAI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba0e573c6ed96cbf4b9a620818b92073f3594553")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2b58c908c80b5a11609f423dab84647b20e504d")]
 [assembly: System.Reflection.AssemblyProductAttribute("PieAI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PieAI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
