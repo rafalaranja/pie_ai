@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "6HFp0TAYi04=",
+  "dgSpecHash": "i2oJQPGXiO0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\rafat\\Desktop\\Geekathon25\\pie_ai\\PieAI\\PieAI.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\PieAI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jhdav\\.nuget\\packages\\awssdk.bedrockagentcore\\4.0.2.2\\awssdk.bedrockagentcore.4.0.2.2.nupkg.sha512",
+    "C:\\Users\\jhdav\\.nuget\\packages\\awssdk.bedrockagentruntime\\4.0.5.2\\awssdk.bedrockagentruntime.4.0.5.2.nupkg.sha512",
+    "C:\\Users\\jhdav\\.nuget\\packages\\awssdk.bedrockdataautomationruntime\\4.0.1.18\\awssdk.bedrockdataautomationruntime.4.0.1.18.nupkg.sha512",
+    "C:\\Users\\jhdav\\.nuget\\packages\\awssdk.bedrockruntime\\4.0.6.1\\awssdk.bedrockruntime.4.0.6.1.nupkg.sha512",
+    "C:\\Users\\jhdav\\.nuget\\packages\\awssdk.core\\4.0.0.28\\awssdk.core.4.0.0.28.nupkg.sha512"
+  ],
   "logs": []
 }

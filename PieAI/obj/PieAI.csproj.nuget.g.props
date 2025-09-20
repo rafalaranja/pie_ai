@@ -5,12 +5,19 @@
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\rafat\.nuget\packages\;C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages</NuGetPackageFolders>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\jhdav\.nuget\packages\;C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.14.1</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.13.2</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="C:\Users\rafat\.nuget\packages\" />
+    <SourceRoot Include="C:\Users\jhdav\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">C:\Users\jhdav\.nuget\packages\awssdk.core\4.0.0.28</PkgAWSSDK_Core>
+    <PkgAWSSDK_BedrockRuntime Condition=" '$(PkgAWSSDK_BedrockRuntime)' == '' ">C:\Users\jhdav\.nuget\packages\awssdk.bedrockruntime\4.0.6.1</PkgAWSSDK_BedrockRuntime>
+    <PkgAWSSDK_BedrockDataAutomationRuntime Condition=" '$(PkgAWSSDK_BedrockDataAutomationRuntime)' == '' ">C:\Users\jhdav\.nuget\packages\awssdk.bedrockdataautomationruntime\4.0.1.18</PkgAWSSDK_BedrockDataAutomationRuntime>
+    <PkgAWSSDK_BedrockAgentRuntime Condition=" '$(PkgAWSSDK_BedrockAgentRuntime)' == '' ">C:\Users\jhdav\.nuget\packages\awssdk.bedrockagentruntime\4.0.5.2</PkgAWSSDK_BedrockAgentRuntime>
+    <PkgAWSSDK_BedrockAgentCore Condition=" '$(PkgAWSSDK_BedrockAgentCore)' == '' ">C:\Users\jhdav\.nuget\packages\awssdk.bedrockagentcore\4.0.2.2</PkgAWSSDK_BedrockAgentCore>
+  </PropertyGroup>
 </Project>

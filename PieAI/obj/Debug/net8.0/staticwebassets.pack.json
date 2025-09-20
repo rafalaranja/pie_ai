@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\PieAI.bundle.scp.css",
+      "PackagePath": "staticwebassets\\PieAI.zdelccpg86.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PieAI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PieAI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.PieAI.props",
+      "PackagePath": "build\\PieAI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.PieAI.props",
+      "PackagePath": "buildMultiTargeting\\PieAI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.PieAI.props",
+      "PackagePath": "buildTransitive\\PieAI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

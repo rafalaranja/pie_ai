@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rafat\\Desktop\\Geekathon25\\pie_ai\\PieAI\\PieAI.csproj": {}
+    "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\PieAI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rafat\\Desktop\\Geekathon25\\pie_ai\\PieAI\\PieAI.csproj": {
+    "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\PieAI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rafat\\Desktop\\Geekathon25\\pie_ai\\PieAI\\PieAI.csproj",
+        "projectUniqueName": "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\PieAI.csproj",
         "projectName": "PieAI",
-        "projectPath": "C:\\Users\\rafat\\Desktop\\Geekathon25\\pie_ai\\PieAI\\PieAI.csproj",
-        "packagesPath": "C:\\Users\\rafat\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rafat\\Desktop\\Geekathon25\\pie_ai\\PieAI\\obj\\",
+        "projectPath": "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\PieAI.csproj",
+        "packagesPath": "C:\\Users\\jhdav\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jhdav\\Desktop\\pie_ai\\PieAI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\rafat\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jhdav\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,11 +44,33 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "AWSSDK.BedrockAgentCore": {
+              "target": "Package",
+              "version": "[4.0.2.2, )"
+            },
+            "AWSSDK.BedrockAgentRuntime": {
+              "target": "Package",
+              "version": "[4.0.5.2, )"
+            },
+            "AWSSDK.BedrockDataAutomationRuntime": {
+              "target": "Package",
+              "version": "[4.0.1.18, )"
+            },
+            "AWSSDK.BedrockRuntime": {
+              "target": "Package",
+              "version": "[4.0.6.1, )"
+            },
+            "AWSSDK.Core": {
+              "target": "Package",
+              "version": "[4.0.0.28, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -68,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

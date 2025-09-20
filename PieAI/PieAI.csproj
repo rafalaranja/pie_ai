@@ -6,4 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.BedrockAgentCore" Version="4.0.2.2" />
+    <PackageReference Include="AWSSDK.BedrockAgentRuntime" Version="4.0.5.2" />
+    <PackageReference Include="AWSSDK.BedrockDataAutomationRuntime" Version="4.0.1.18" />
+    <PackageReference Include="AWSSDK.BedrockRuntime" Version="4.0.6.1" />
+    <PackageReference Include="AWSSDK.Core" Version="4.0.0.28" />
+  </ItemGroup>
+
 </Project>
