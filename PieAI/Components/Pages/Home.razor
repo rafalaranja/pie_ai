@@ -1,7 +1,74 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
+<div class="d-flex justify-content-center pt-5 pb-5">
+    <button class="btn btn-dark">Input Mock Data</button>
+</div>
 
-<h1>Hello, world!</h1>
+<!-- Main Container -->
+<div class="d-flex justify-content-around pt-5 pb-5">
+    <!-- Container da esquerda -->
+    <div class="d-flex justify-content-center flex-column">
+        <!-- Container do botão -->
+        <div class="d-flex justify-content-center pb-5">
+            <button class="btn btn-dark">Review Metrics</button>
+        </div>
+        <!-- Container da tabela -->
+        <div class="d-flex justify-content-center">
+            <table class="table table-striped">
+                <thead class="table-secondary">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+    </div>
 
-Welcome to your new app.
+
+
+    <!-- Container da direita -->
+    <div class="d-flex justify-content-center flex-column">
+        <!-- Container do botão -->
+        <div class="d-flex justify-content-center pb-5">
+            <button class="btn btn-dark" @onclick="IncrementCount">Generate Plan</button>
+        </div>
+        <!-- Container da tabela -->
+        <div class="d-flex justify-content-center">
+            <textarea class="form-control " rows="8" cols="30" value="@currentCount" readonly style="resize: none;"></textarea>
+        </div>
+    </div>
+</div>
+
+@code {
+    private int currentCount = 1;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
