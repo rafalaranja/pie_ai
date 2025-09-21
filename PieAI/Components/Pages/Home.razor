@@ -1,5 +1,7 @@
 ﻿@page "/"
+@using System.Text.Json
 @rendermode InteractiveServer
+
 
 <PageTitle>Home</PageTitle>
 <div class=" d-flex justify-content-center pt-5 pb-5">
@@ -62,22 +64,36 @@
         </div>
         <!-- Container da tabela -->
         <div class="d-flex justify-content-center flex-column">
-            <!-- Container do id e data -->
-            <div class="d-flex justify-content-between">
-                <p>Id: 3</p>
-                <p>Date: 29/01</p>
-            </div>
-            <!-- Container inline -->
-            <div class="d-flex d-inline-flex">
-                <!-- Container raw material -->
-                <div class="d-flex justify-content-center p-2">
-                    <textarea class="form-control " rows="8" cols="30" value="@response" readonly style="resize: none;"></textarea>
+            @foreach(var plan in plans){
+                <!-- Container do id e data -->
+                <div class="d-flex justify-content-between">
+                    <p>@plan.GetProperty("description").GetString()</p>
+                    <p>@plan.GetProperty("date").GetString()</p>
                 </div>
-                <!-- Container orders -->
-                <div class="d-flex justify-content-center p-2">
-                    <textarea class="form-control " rows="8" cols="30" value="@response" readonly style="resize: none;"></textarea>
+                <!-- Container inline -->
+                <div class="d-flex d-inline-flex">
+                    <!-- Container raw material -->
+                    <div class="d-flex justify-content-center p-2">
+                        <textarea class="form-control " rows="8" cols="30" value="@response" readonly style="resize: none;">
+                                @foreach (var sale in plan.GetProperty("sales").EnumerateArray())
+                            {
+                                @sale.GetProperty("date").GetString()
+                                @sale.GetProperty("product_name").GetString()
+                                @sale.GetProperty("quantity").GetInt32()
+                            }
+                        </textarea>
+                    </div>
+                    <!-- Container orders -->
+                    <div class="d-flex justify-content-center p-2">
+                        <textarea class="form-control " rows="8" cols="30" value="@response" readonly style="resize: none;">
+                            @foreach (var req in plan.GetProperty("planRequirements").EnumerateArray())
+                            {
+                            @req.GetProperty("productSize_name").GetString()
+                            @req.GetProperty("required_quantity").GetInt32()}
+                        </textarea>
+                    </div>
                 </div>
-            </div>
+                }
         </div>
     </div>
 </div>
@@ -132,6 +148,7 @@
 <!-- Código C# -->
 @code {
     public string response = "";
+    private List<JsonElement> plans = new();
     private bool showChat = false;
 
     // Chat state
@@ -145,7 +162,14 @@
 
     private async Task GeneratePlan()
     {
-      //  response = await apiService.GeneratePlan();
+      response = await apiService.GeneratePlan();
+
+        if (!string.IsNullOrWhiteSpace(response))
+        {
+            using var doc = JsonDocument.Parse(response);
+            var productionPlans = doc.RootElement.GetProperty("productionPlans");
+            plans = productionPlans.EnumerateArray().ToList();
+        }
     }
 
     private void ToggleChat()
