@@ -2,8 +2,7 @@
 @rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
-<div class="d-flex justify-content-center pt-5 pb-5">
-    <button class="btn btn-dark">Input Mock Data</button>
+<div class=" d-flex justify-content-center pt-5 pb-5">
 </div>
 
 <!-- Main Container -->
@@ -20,31 +19,34 @@
             <table class="table table-striped">
                 <thead class="table-secondary">
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Current</th>
+                        <th scope="col">Recommended</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>twitter</td>
-                    </tr>
+                    @foreach (var suggestion in suggestions)
+                    {
+                        <tr>
+                            <td>@suggestion.Name</td>
+                            <td>@suggestion.Current</td>
+                            <td>@suggestion.Recomended</td>
+                            <td>
+                                <button class="btn btn-success" @onclick="() => ClearLine(suggestion)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                        <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
+                                    </svg>
+                                </button><button class="btn btn-danger ms-1" @onclick="() => ClearLine(suggestion)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div> 
@@ -56,7 +58,7 @@
     <div class="d-flex justify-content-center flex-column">
         <!-- Container do botão -->
         <div class="d-flex justify-content-center pb-3">
-            <button class="btn btn-dark" @onclick="IncrementCount">Generate Plan</button>
+            <button class="btn btn-dark" @onclick="GeneratePlan">Generate Plan</button>
         </div>
         <!-- Container da tabela -->
         <div class="d-flex justify-content-center flex-column">
@@ -69,11 +71,11 @@
             <div class="d-flex d-inline-flex">
                 <!-- Container raw material -->
                 <div class="d-flex justify-content-center p-2">
-                    <textarea class="form-control " rows="8" cols="30" value="@currentCount" readonly style="resize: none;"></textarea>
+                    <textarea class="form-control " rows="8" cols="30" value="@response" readonly style="resize: none;"></textarea>
                 </div>
                 <!-- Container orders -->
                 <div class="d-flex justify-content-center p-2">
-                    <textarea class="form-control " rows="8" cols="30" value="@currentCount" readonly style="resize: none;"></textarea>
+                    <textarea class="form-control " rows="8" cols="30" value="@response" readonly style="resize: none;"></textarea>
                 </div>
             </div>
         </div>
@@ -105,7 +107,14 @@
             <!-- Render all chat messages -->
             @foreach (var message in chatMessages)
             {
-                <div class="d-flex justify-content-end p-2 m-2 bg-dark text-white rounded">@message</div>
+                var isEven = chatMessages.IndexOf(message) % 2 == 0;
+                if (isEven)
+                {
+                    <div class="d-flex justify-content-end p-2 m-2 bg-dark text-white rounded">@message</div>
+                    continue;
+                }
+
+                <div class="d-flex justify-content-start p-2 m-2 bg-white text-dar rounded">@message</div>
             }
         </div>
         <div class="mt-2 d-flex">
@@ -122,16 +131,21 @@
 
 <!-- Código C# -->
 @code {
-    private int currentCount = 1;
+    public string response = "";
     private bool showChat = false;
 
     // Chat state
     private List<string> chatMessages = new();
     private string chatInput = string.Empty;
 
-    private void IncrementCount()
+    //Recommendations Table
+    private List<Suggestion> suggestions = new() { new Suggestion { Name = "linda", Current = "1", Recomended = "2" }, new Suggestion { Name = "noodles", Current = "2", Recomended = "1" } };
+
+    ApiServiceTest apiService = new ApiServiceTest();
+
+    private async Task GeneratePlan()
     {
-        currentCount++;
+      //  response = await apiService.GeneratePlan();
     }
 
     private void ToggleChat()
@@ -139,13 +153,31 @@
         showChat = !showChat;
     }
 
-    private void SendMessage()
+    public void ClearLine(Suggestion suggestion)
+    {
+        suggestions.Remove(suggestion);
+    }
+
+    private async Task SendMessage()
     {
         if (!string.IsNullOrWhiteSpace(chatInput))
         {
             chatMessages.Add(chatInput);
+            var msg = chatInput;
             chatInput = string.Empty;
+            chatMessages.Add(await apiService.SendPromptWithKnowledgeBase(msg));
         }
+    }
+
+    private async Task GetSuggestions()
+    {
+       // var suggestionsFromApi = await apiService.GetSuggestions();
+
+        // foreach (var suggestion in suggestionsFromApi)
+        // {
+        //     if(!suggestions.Any(s => s.Name == suggestion.Name))
+        //         suggestions.Add(suggestion);
+        // }
     }
 
     private void HandleInputKeyDown(KeyboardEventArgs e)

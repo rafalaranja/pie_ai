@@ -29,3 +29,8 @@ C:\Users\rafat\Desktop\Geekathon25\pie_ai\PieAI\obj\Debug\net8.0\refint\PieAI.dl
 C:\Users\rafat\Desktop\Geekathon25\pie_ai\PieAI\obj\Debug\net8.0\PieAI.pdb
 C:\Users\rafat\Desktop\Geekathon25\pie_ai\PieAI\obj\Debug\net8.0\PieAI.genruntimeconfig.cache
 C:\Users\rafat\Desktop\Geekathon25\pie_ai\PieAI\obj\Debug\net8.0\ref\PieAI.dll
+C:\Users\rafat\Desktop\Geekathon25\pie_ai\PieAI\bin\Debug\net8.0\AWSSDK.BedrockAgentRuntime.dll
+C:\Users\rafat\Desktop\Geekathon25\pie_ai\PieAI\bin\Debug\net8.0\AWSSDK.BedrockRuntime.dll
+C:\Users\rafat\Desktop\Geekathon25\pie_ai\PieAI\bin\Debug\net8.0\AWSSDK.Core.dll
+C:\Users\rafat\Desktop\Geekathon25\pie_ai\PieAI\obj\Debug\net8.0\PieAI.csproj.AssemblyReference.cache
+C:\Users\rafat\Desktop\Geekathon25\pie_ai\PieAI\obj\Debug\net8.0\PieAI.csproj.Up2Date

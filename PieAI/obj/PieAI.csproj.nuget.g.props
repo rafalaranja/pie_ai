@@ -13,4 +13,9 @@
     <SourceRoot Include="C:\Users\rafat\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">C:\Users\rafat\.nuget\packages\awssdk.core\4.0.0.28</PkgAWSSDK_Core>
+    <PkgAWSSDK_BedrockRuntime Condition=" '$(PkgAWSSDK_BedrockRuntime)' == '' ">C:\Users\rafat\.nuget\packages\awssdk.bedrockruntime\4.0.6.1</PkgAWSSDK_BedrockRuntime>
+    <PkgAWSSDK_BedrockAgentRuntime Condition=" '$(PkgAWSSDK_BedrockAgentRuntime)' == '' ">C:\Users\rafat\.nuget\packages\awssdk.bedrockagentruntime\4.0.5.2</PkgAWSSDK_BedrockAgentRuntime>
+  </PropertyGroup>
 </Project>

@@ -49,6 +49,20 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "AWSSDK.BedrockAgentRuntime": {
+              "target": "Package",
+              "version": "[4.0.5.2, )"
+            },
+            "AWSSDK.BedrockRuntime": {
+              "target": "Package",
+              "version": "[4.0.6.1, )"
+            },
+            "AWSSDK.Core": {
+              "target": "Package",
+              "version": "[4.0.0.28, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
