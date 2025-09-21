@@ -14,7 +14,7 @@
     <div class="d-flex justify-content-center flex-column">
         <!-- Container do botão -->
         <div class="d-flex justify-content-center pb-5">
-            <button class="btn btn-dark">Review Metrics</button>
+            <button class="btn btn-dark" @onclick="GetSuggestions">Review Metrics</button>
         </div>
         <!-- Container da tabela -->
         <div class="d-flex justify-content-center">
@@ -33,7 +33,7 @@
                         <tr>
                             <td>@suggestion.Name</td>
                             <td>@suggestion.Current</td>
-                            <td>@suggestion.Recomended</td>
+                            <td>@suggestion.Recommended</td>
                             <td>
                                 <button class="btn btn-success" @onclick="() => ClearLine(suggestion)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
@@ -64,6 +64,7 @@
         </div>
         <!-- Container da tabela -->
         <div class="d-flex justify-content-center flex-column">
+            @response
             @foreach(var plan in plans){
                 <!-- Container do id e data -->
                 <div class="d-flex justify-content-between">
@@ -75,7 +76,7 @@
                     <!-- Container raw material -->
                     <div class="d-flex justify-content-center p-2">
                         <textarea class="form-control " rows="8" cols="30" value="@response" readonly style="resize: none;">
-                                @foreach (var sale in plan.GetProperty("sales").EnumerateArray())
+                            @foreach (var sale in plan.GetProperty("sales").EnumerateArray())
                             {
                                 @sale.GetProperty("date").GetString()
                                 @sale.GetProperty("product_name").GetString()
@@ -85,15 +86,15 @@
                     </div>
                     <!-- Container orders -->
                     <div class="d-flex justify-content-center p-2">
-                        <textarea class="form-control " rows="8" cols="30" value="@response" readonly style="resize: none;">
+                        <textarea class="form-control " rows="8" cols="30"  readonly style="resize: none;">
                             @foreach (var req in plan.GetProperty("planRequirements").EnumerateArray())
                             {
-                            @req.GetProperty("productSize_name").GetString()
-                            @req.GetProperty("required_quantity").GetInt32()}
+                                @req.GetProperty("productSize_name").GetString()
+                                @req.GetProperty("required_quantity").GetInt32()}
                         </textarea>
                     </div>
                 </div>
-                }
+            }
         </div>
     </div>
 </div>
@@ -135,9 +136,9 @@
         </div>
         <div class="mt-2 d-flex">
             <input class="form-control me-2"
-                   placeholder="Type your message..."
-                   @bind="chatInput"
-                   @onkeydown="HandleInputKeyDown" />
+            placeholder="Type your message..."
+            @bind="chatInput"
+            @onkeydown="HandleInputKeyDown" />
             <button class="btn btn-success" @onclick="SendMessage">Send</button>
         </div>
     </div>
@@ -156,20 +157,44 @@
     private string chatInput = string.Empty;
 
     //Recommendations Table
-    private List<Suggestion> suggestions = new() { new Suggestion { Name = "linda", Current = "1", Recomended = "2" }, new Suggestion { Name = "noodles", Current = "2", Recomended = "1" } };
+    private List<Suggestion> suggestions = new();
 
     ApiServiceTest apiService = new ApiServiceTest();
 
     private async Task GeneratePlan()
     {
-      response = await apiService.GeneratePlan();
+
+        //  response = await apiService.GeneratePlan();
+
+
+        var instruction =
+        "Geram-me um plano para um dia para sermos capazes de satisfazer as encomendas pela ordem de entrega. " +
+        "Gera um productionPlan e o output mostrar as 'sales' que irá satisfazer bem como a quantidade de matéria prima necessária por product_size. O output deve respeitar a seguinte estrutura, não adiciones texto/informação extra tirando o que é pedido no json e nesse formato:  ";
+
+        var jsonObj = new
+        {
+            productionPlans = new
+            {
+                date = "",
+                description = "",
+                sales = new[] { new { date = "", product_name = "", quantity = "" } },
+                planRequirements = new[] { new { id_plan = "", productSize_name = "", required_quantity = "" } }
+            }
+        };
+
+        // prompt final: string de instruções + JSON (serializado, sem escapar manualmente)
+        string prompt = instruction + JsonSerializer.Serialize(jsonObj);
+
+        response = await apiService.SendPromptWithKnowledgeBase(prompt);
 
         if (!string.IsNullOrWhiteSpace(response))
         {
             using var doc = JsonDocument.Parse(response);
             var productionPlans = doc.RootElement.GetProperty("productionPlans");
-            plans = productionPlans.EnumerateArray().ToList();
+            response = productionPlans.ToString();
+            //plans = productionPlans.EnumerateArray().ToList();
         }
+
     }
 
     private void ToggleChat()
@@ -195,12 +220,84 @@
 
     private async Task GetSuggestions()
     {
-       // var suggestionsFromApi = await apiService.GetSuggestions();
+        string instruction = @"
+Go through your technical lists, and compare the expected values (expected_time, expected_yield and expected_labour_hours) and compare them with actual_time, actual_yield and actual_labour_hours from productionExecutions respectively.
 
-        // foreach (var suggestion in suggestionsFromApi)
+You should do the calculations taking in account that a productionExecutions refers to a planRequirements which is detailed by planRequirementDetails and these are linked to technical lists. From this relation you should be able to compare expected values with actual ones.
+
+If you identify a considerable descrepancy between expected/actual of a specific technical list. 
+
+Prepare the output in the following json structure and NO extra information/considerations:
+
+[{ 
+""Name"": {Descriptor of the technical list + the field (can be time, yield and hours)}, ""Current"": {expected_values}, ""Recommended"": ""{your_recomended_calculation}"" 
+}, ...]
+
+## Example of a Wrong output and explanation:
+Based on the retrieved results, here is the comparison between expected and actual values for each technical list: -> Should not have text besides json structure;
+[
+  {
+    ""id_list"": 1, -> Should not expose Ids, also the only fields to be displayed are ""Name"", ""Current"" and ""Recommended""; 
+    ""expected_time"": 20,
+    ""actual_time"": 50,
+    ""expected_yield"": 0.50,
+    ""actual_yield"": 0.65,
+    ""expected_labour_hours"": 1.5,
+    ""actual_labour_hours"": 4.0
+  }
+]
+Note: The model only compared the technical lists that had corresponding production executions. The other technical lists were not included in the comparison as there were no matching production executions found in the retrieved results. -> Should not have text besides json structure;
+
+## Example of a Correct output:
+[
+  {
+    ""Name"": ""Tempo estimado para produzir peito de frango a partir de Frango 18"",
+    ""Current"": 20,
+    ""Recommended"": 50
+  },
+  {
+    ""Name"": ""Rendimento estimado para produzir peito de frango a partir de Frango 18"",
+    ""Current"": 0.50,
+    ""Recommended"": 0.65
+  }
+]
+
+Considerations: The ""Name"" should be in portuguese as seen in the example above. Do not write anything else that is not in the json format.
+";
+        ;
+
+
+        var jsonObj = new
+        {
+            productionPlans = new
+            {
+                date = "",
+                description = "",
+                sales = new[] { new { date = "", product_name = "", quantity = "" } },
+                planRequirements = new[] { new { id_plan = "", productSize_name = "", required_quantity = "" } }
+            }
+        };
+
+        // prompt final: string de instruções + JSON (serializado, sem escapar manualmente)
+        string prompt = instruction + JsonSerializer.Serialize(jsonObj);
+
+        string rawSug;
+        rawSug = await apiService.SendPromptWithKnowledgeBase(instruction);
+        try
+        {
+            suggestions = JsonSerializer.Deserialize<List<Suggestion>>(rawSug);
+
+        }catch(Exception e)
+        {
+            throw;
+        }
+
+        // if (!string.IsNullOrWhiteSpace(response))
         // {
-        //     if(!suggestions.Any(s => s.Name == suggestion.Name))
-        //         suggestions.Add(suggestion);
+        //     using var doc = JsonDocument.Parse(response);
+        //     var productionPlans = doc.RootElement.GetProperty("productionPlans");
+        //     response = productionPlans.ToString();
+        //     //plans = productionPlans.EnumerateArray().ToList();
         // }
     }
 

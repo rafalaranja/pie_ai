@@ -6,6 +6,7 @@ using Amazon.Runtime;
 using System.Text;
 using System.Text.Json;
 using Amazon;
+using PieAI;
 
 public class ApiServiceTest
 {
@@ -15,9 +16,6 @@ public class ApiServiceTest
                                                      // >>>> Ajuste estes dois valores para a sua KB <<<<
     private readonly string _knowledgeBaseId; // ex: "KB1234567890abcdef"
     private readonly string _modelArnOrInferenceProfile;
-    // ex de ModelArn (ou Inference Profile ARN):
-    // "arn:aws:bedrock:us-east-1:123456789012:inference-profile/us.anthropic.claude-3-5-sonnet-20240620-v1:0"
-
     public ApiServiceTest()
     {
         var credentials = new SessionAWSCredentials("ASIARLTQVAQHU4ZXCMJD", "pe2vYtpaKNw0TGzglfxKGxJ3X/2BHPkQ86NgjqR1", "IQoJb3JpZ2luX2VjEIr//////////wEaCXVzLWVhc3QtMSJGMEQCIHKWvoCx230RNJpRL1FYaqyStz6erBBzIcnsLFzbOxiHAiANVM6mbizEICHQy0Tg20WmURGOeMMfOKGkaLURUPt8zSqZAggTEAEaDDA5MzY1MTc5NzAwNyIM9vYi88LrVtJLed4aKvYBi4yRo/vTlDjhI96Adzi9ggCAv2x2wMx9gNiSHjr+ZhHyhFxDJNbMVuZ8n5wOPR8k4dgb1MK5wIyGA5QSQnlnee214xlUSbrgdgIvLcvF9NGgbveVYCM1Y8NFItkoyrqCvBgGe6aNryLR3f/MoAQbi9XXuxjoe7u9zme0TLI0koY6oDViOxbespBFtxLvNug/JbM8Fw3lF20M3yeL2wlcvNw3GtV4ECJnce4Z4zIciwhcL9AhhGaOmEGmDl1Chx0FtJ3zt/VZadWJruFcUrGFRUuWv1IJxRKvHUhKJTHCTuOnUocJAe6KOKu1ljfOiKvVNTGYMF/+MJiLv8YGOp4BrlCoIWk5A4hzbBqaF7yfM0OTSrKt+9wZDr1C+Ly4gjJOZLyGlS9VOwsnJxEj56vnYyG4idpDRz+NO9d0LAcVtqTWdlaHMSR84PSaZ20aVUjdOerTLPLSHBHY24+RM3Hd8LWJkcdJyBfSeb8SbW+t9+/V8de6RK/S9ETnsJrOP/s/kWQisBM5/nLtAuAuCceS4MCXefJZ9nW8SzDYsYM=");
@@ -35,6 +33,8 @@ public class ApiServiceTest
     // ===== 1) Igual ao seu método atual: chamada direta ao modelo, sem KB =====
     public async Task<string> SendPrompt(string prompt)
     {
+        string finalPrompt = PromptUtils.BuildPrompt(prompt);
+
         var requestBody = new
         {
             anthropic_version = "bedrock-2023-05-31",
@@ -45,7 +45,7 @@ public class ApiServiceTest
             {
             new {
                 role = "user",
-                content = new[] { new { type = "text", text = prompt } }
+                content = new[] { new { type = "text", text = finalPrompt } }
             }
         }
         };
@@ -71,12 +71,13 @@ public class ApiServiceTest
     // ===== 2) NOVO: consulta a Knowledge Base (RAG) com RetrieveAndGenerate =====
     public async Task<string> SendPromptWithKnowledgeBase(string prompt)
     {
+        string finalPrompt = PromptUtils.BuildPrompt(prompt);
         string answer = null;
         try
         {
             var req = new RetrieveAndGenerateRequest
             {
-                Input = new RetrieveAndGenerateInput { Text = prompt },
+                Input = new RetrieveAndGenerateInput { Text = finalPrompt },
                 RetrieveAndGenerateConfiguration = new RetrieveAndGenerateConfiguration
                 {
                     Type = RetrieveAndGenerateType.KNOWLEDGE_BASE,
